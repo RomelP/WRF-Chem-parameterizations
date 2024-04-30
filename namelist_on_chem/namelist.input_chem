@@ -1,0 +1,169 @@
+ &time_control
+ run_days                            = 0,
+ run_hours                           = ,
+ run_minutes                         = 0,
+ run_seconds                         = 0,
+ start_year                          = 2019, 2019, 2019, 2019, 2019,
+ start_month                         = 10,   10,   10,   10,
+ start_day                           = 31,   31,   31,   31,
+ start_hour                          = 00,   00,   00,   00,
+ start_minute                        = 00,   00,   00,   00,   00,
+ start_second                        = 00,   00,   00,   00,   00,
+ end_year                            = 2019, 2019, 2019, 2019,
+ end_month                           = 11,   11,   11,   11,
+ end_day                             = 01,   01,   01,   01,
+ end_hour                            = 00,   00,   00,   00,
+ end_minute                          = 00,   00,   00,   00,   00,
+ end_second                          = 00,   00,   00,   00,   00,
+ interval_seconds                    = 21600,
+ input_from_file                     = .false.,.true.,.true.,.true.,.true.,
+ fine_input_stream                   = 0, 2, 2, 2, 2,
+ history_interval                    = 60,  30,  30,  60,  60,
+ frames_per_outfile                  = 1000, 1000, 1000, 1000, 1000,
+ restart                             = .true.,
+ restart_interval                    = 1440,
+ auxinput5_interval_m                = 60,      ! para lectura de los archivos de emision
+ io_form_history                     = 2
+ io_form_restart                     = 2
+ io_form_input                       = 2
+ io_form_boundary                    = 2
+ io_form_auxinput2                   = 2
+ io_form_auxinput5                   = 2        ! para lectura de los archivos de emision
+ debug_level                         = 0
+ /
+
+ &domains
+ time_step                           = 60,
+ time_step_fract_num                 = 0,
+ time_step_fract_den                 = 1,
+ max_dom                             = 1,
+ e_we                                = 120, 201, 91, 49, 40,
+ e_sn                                = 120, 201, 91, 40, 40,
+ e_vert                              = 30, 28,  28, 40, 40,
+ num_metgrid_levels                  = 34,
+ num_metgrid_soil_levels             = 4,
+ dx                                  = 18000,  500, 2000, 2666.666,
+ dy                                  = 18000,  500, 2000, 2666.666,
+ grid_id                             = 1,     2,     3,     4,
+ parent_id                           = 0,     1,     2,     3,
+ i_parent_start                      = 1,     11,   19,    11,
+ j_parent_start                      = 1,     20,   14,    16,
+ parent_grid_ratio                   = 1,     4,     5,     3,
+ parent_time_step_ratio              = 1,     4,     5,     3,
+ feedback                            = 0,
+ smooth_option                       = 0
+ p_top_requested                     = 10000,
+ 
+/
+
+  &physics
+ mp_physics                          = 2,     2,     2,     2,
+ ra_lw_physics                       = 4,     4,     4,     4,
+ ra_sw_physics                       = 4,     4,     4,     4,
+ radt                                = 18,   0.5,     2,
+ sf_sfclay_physics                   = 1,     1,     1,     7,
+ sf_surface_physics                  = 2,     2,     2,     2,
+ bl_pbl_physics                      = 1,     1,     1,     7,
+ bldt                                = 0,     0,     0,     0,
+ cu_physics                          = 3,     3,     3,     1,
+ cudt                                = 0,     0,     0,     0,
+ cu_diag                             = 1, 
+ isfflx                              = 1,
+ ifsnow                              = 0,
+ icloud                              = 1,
+ surface_input_source                = 1,
+ num_soil_layers                     = 4,
+ sf_urban_physics                    = 0,
+ maxiens                             = 1,
+ maxens                              = 3,
+ maxens2                             = 3,
+ maxens3                             = 16,
+ ensdim                              = 144,
+               
+ /
+ 
+
+ &fdda 
+ /
+
+ &dynamics
+ w_damping                           = 0,
+ diff_opt                            = 1,
+ km_opt                              = 4,
+ diff_6th_opt                        = 0,      0,      0,      0,
+ diff_6th_factor                     = 0.12,   0.12,   0.12,   0.12,
+ base_temp                           = 290.
+ damp_opt                            = 0,
+ zdamp                               = 5000.,  5000.,  5000.,  5000.,
+ dampcoef                            = 0.01,    0.01,    0.01,    0.01,
+ khdif                               = 0,      0,      0,      0,
+ kvdif                               = 0,      0,      0,      0,
+ non_hydrostatic                     = .true., .true., .true., .true.,
+ moist_adv_opt                       = 1,      1,      1,      1,
+ scalar_adv_opt                      = 1,      1,      1,      1,     
+ /
+ 
+ 
+ 
+ &bdy_control
+ spec_bdy_width                      = 5,
+ spec_zone                           = 1,
+ relax_zone                          = 4,
+ specified                           = .true., .false.,.false.,.false.,
+ nested                              = .false., .true., .true., .true.,
+ /
+
+ &grib2
+ /
+ &fire
+ ifire                              =0,
+ /
+ 
+ &scm
+ /
+ 
+ &chem
+ kemit                             = 2,              ! Depende del parametro n_lev en el archivo mlv.ncl. Aqui vamos a considerar apenas 2 niveles
+ chem_opt                          = 2, 2,           ! 2 = RADM2/MADE-SORGAM
+ bioemdt                           = 30, 30,
+ photdt                            = 30, 30,
+ chemdt                            = 1.0, 2.0,  
+ io_style_emissions                = 2,              ! 1 Para usar 2 archivos de emisiones: wrfchemi_00z_d01 y wrfchemi_12z_d01
+ emiss_inpt_opt                    = 1, 1,           ! 1 = RADM2/SORGAM
+ emiss_opt                         = 3, 3,           ! 3 = RADM2/MADE-SORGAM
+ chem_in_opt                       = 0, 0,           ! Para utilizar perfiles idealizados
+ phot_opt                          = 2, 1,           ! Esquema de fotolisis Fast-J
+ gas_drydep_opt                    = 1, 1,
+ aer_drydep_opt                    = 1, 1,
+ bio_emiss_opt                     = 1, 1,
+ dust_opt                          = 0,
+ dmsemis_opt                       = 0,
+ seas_opt                          = 0,
+ gas_bc_opt                        = 1, 1,
+ gas_ic_opt                        = 1, 1,
+ aer_bc_opt                        = 1, 1,
+ aer_ic_opt                        = 1, 1,
+ gaschem_onoff                     = 1, 1,
+ aerchem_onoff                     = 1, 1,
+ wetscav_onoff                     = 0, 0,
+ cldchem_onoff                     = 0, 0,
+ vertmix_onoff                     = 1, 1,
+ chem_conv_tr                      = 0, 1,
+ biomass_burn_opt                  = 3, 0,
+ plumerisefire_frq                 = 180, 30,
+ aer_ra_feedback                   = 0, 0,
+ have_bcs_chem                     = .false., .false.,
+ /
+ 
+ &dfi_control
+ dfi_opt                             =0,
+ dfi_nfilter                         =0,
+ dfi_write_filtered_input            =.false.,
+ dfi_write_dfi_history               =.false.,
+ /
+  
+  
+ &namelist_quilt
+ nio_tasks_per_group = 0,
+ nio_groups = 1,
+ /
